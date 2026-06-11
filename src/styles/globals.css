@@ -1,0 +1,64 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-primary-dark: #0F3D5E;
+  --color-primary: #0D5C7D;
+  --color-accent: #14B8A6;
+  --color-custom-bg: #F4F9FB;
+
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --animate-fade-in: fadeIn 0.5s ease-out forwards;
+  --animate-fade-in-up: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+
+  @keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+  @keyframes fadeInUp {
+    0% { opacity: 0; transform: translateY(15px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+}
+
+@utility glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+@utility custom-shadow {
+  box-shadow: 0 4px 20px -2px rgba(15, 61, 94, 0.05), 0 2px 8px -1px rgba(15, 61, 94, 0.03);
+}
+
+@utility dashboard-shadow {
+  box-shadow: 0 10px 30px -5px rgba(15, 61, 94, 0.08), 0 4px 12px -2px rgba(15, 61, 94, 0.04);
+}
+
+/* Custom Scrollbar for dashboard elements */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #94A3B8;
+}
+
+body {
+  font-family: var(--font-sans);
+  color: #1E293B;
+  background-color: #FFFFFF;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
