@@ -1,38 +1,36 @@
 import React from 'react';
-import { ResponsiveContainer, LineChart, Line } from 'recharts';
 
-const StatsCard = ({ title, value, change, isPositive, chartData, strokeColor = '#14B8A6' }) => {
+const StatsCard = ({ title, value, change, barHeights, activeColor = '#14B8A6' }) => {
+  // Default heights if not provided
+  const heights = barHeights || [30, 40, 35, 50, 45, 55, 40, 75];
+
   return (
-    <div className="bg-white p-3 rounded-xl border border-slate-100 custom-shadow flex flex-col justify-between h-[82px] select-none hover:border-slate-200 transition-all duration-200">
-      <div className="flex justify-between items-start">
-        <div>
-          <p className="text-[10px] font-semibold text-slate-400 uppercase tracking-wider">{title}</p>
-          <h4 className="text-lg font-bold text-slate-800 tracking-tight mt-0.5">{value}</h4>
-        </div>
-        <span className={`text-[9px] font-bold px-1.5 py-0.5 rounded-full ${
-          isPositive ? 'bg-emerald-50 text-emerald-600' : 'bg-rose-50 text-rose-600'
-        }`}>
-          {change}
-        </span>
+    <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between h-[155px] select-none hover:border-slate-200 transition-all duration-200">
+      <div className="flex flex-col">
+        <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">{title}</p>
+        <h4 className="text-3xl font-black text-slate-800 tracking-tight mt-1">{value}</h4>
+        <p className="text-xs text-slate-400 font-semibold mt-0.5">{change}</p>
       </div>
       
-      {/* Sparkline Container */}
-      <div className="w-full h-[24px] mt-1.5">
-        <ResponsiveContainer width="100%" height="100%">
-          <LineChart data={chartData} margin={{ top: 2, right: 2, left: 2, bottom: 2 }}>
-            <Line 
-              type="monotone" 
-              dataKey="value" 
-              stroke={strokeColor} 
-              strokeWidth={1.5} 
-              dot={false}
-              isAnimationActive={false} 
+      {/* Mini Bar Chart */}
+      <div className="flex items-end justify-between h-8 mt-4 px-1">
+        {heights.map((height, idx) => {
+          const isLast = idx === heights.length - 1;
+          return (
+            <div
+              key={idx}
+              className="w-[8%] rounded-t-sm"
+              style={{
+                height: `${height}%`,
+                backgroundColor: isLast ? activeColor : `${activeColor}20`,
+              }}
             />
-          </LineChart>
-        </ResponsiveContainer>
+          );
+        })}
       </div>
     </div>
   );
 };
 
 export default StatsCard;
+

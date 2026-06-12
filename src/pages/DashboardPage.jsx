@@ -1,17 +1,5 @@
 import React, { useState } from 'react';
-import { 
-  FiGrid, 
-  FiUsers, 
-  FiBriefcase, 
-  FiClock, 
-  FiCreditCard, 
-  FiTrendingUp, 
-  FiPieChart, 
-  FiSettings,
-  FiSearch,
-  FiBell,
-  FiLogOut
-} from 'react-icons/fi';
+import { FiSearch, FiLogOut } from 'react-icons/fi';
 import StatsCard from '../components/marketing/StatsCard';
 import HeadcountChart from '../components/marketing/HeadcountChart';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
@@ -19,27 +7,13 @@ import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 const departmentData = [
   { name: 'Engineering', value: 82, color: '#0D5C7D' },
   { name: 'Marketing', value: 45, color: '#14B8A6' },
-  { name: 'Sales', value: 58, color: '#F59E0B' },
-  { name: 'Design', value: 34, color: '#6366F1' },
+  { name: 'Sales', value: 58, color: '#0F766E' },
+  { name: 'Design', value: 34, color: '#2DD4BF' },
+  { name: 'Operations', value: 29, color: '#94A3B8' },
 ];
-
-const totalEmployeesData = [{ value: 235 }, { value: 238 }, { value: 240 }, { value: 242 }, { value: 245 }, { value: 248 }];
-const activeEmployeesData = [{ value: 220 }, { value: 224 }, { value: 228 }, { value: 225 }, { value: 229 }, { value: 231 }];
-const openPositionsData = [{ value: 25 }, { value: 22 }, { value: 20 }, { value: 18 }, { value: 19 }, { value: 17 }];
 
 const DashboardPage = ({ user, onLogout }) => {
   const [showAlert, setShowAlert] = useState(true);
-  
-  const menuItems = [
-    { name: 'Dashboard', icon: FiGrid, active: true },
-    { name: 'Employees', icon: FiUsers },
-    { name: 'Recruitment', icon: FiBriefcase },
-    { name: 'Attendance', icon: FiClock },
-    { name: 'Payroll', icon: FiCreditCard },
-    { name: 'Performance', icon: FiTrendingUp },
-    { name: 'Reports', icon: FiPieChart },
-    { name: 'Settings', icon: FiSettings },
-  ];
 
   const getInitials = (email) => {
     if (!email) return 'AD';
@@ -49,63 +23,112 @@ const DashboardPage = ({ user, onLogout }) => {
   return (
     <div className="flex h-screen w-screen bg-[#F4F9FB] overflow-hidden font-sans">
       
-      {/* Sidebar */}
-      <aside className="w-64 bg-[#0B4F6C] text-white flex flex-col justify-between flex-shrink-0 z-20 shadow-xl shadow-[#0B4F6C]/10">
-        <div>
-          {/* Header */}
-          <div className="p-6 flex items-center space-x-3 select-none">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#14B8A6] to-white flex items-center justify-center text-sm font-extrabold text-[#0B4F6C] shadow-md">
+      {/* Left Sidebar */}
+      <aside className="w-60 bg-[#115e59] text-white flex flex-col justify-between flex-shrink-0 z-20 shadow-xl select-none">
+        <div className="overflow-y-auto flex-1 py-6 px-4 space-y-6">
+          {/* Header/Logo */}
+          <div className="px-3 flex items-center space-x-3">
+            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#2DD4BF] to-white flex items-center justify-center text-sm font-extrabold text-[#115e59] shadow-md">
               H
             </div>
-            <span className="text-white text-lg font-extrabold tracking-wider">HUMAI</span>
+            <span className="text-white text-lg font-black tracking-wider">HUMAI</span>
           </div>
 
-          {/* Nav Links */}
-          <nav className="px-4 space-y-1">
-            {menuItems.map((item, index) => {
-              const Icon = item.icon;
-              return (
+          {/* Navigation Links */}
+          <nav className="space-y-5">
+            {/* Main Section */}
+            <div className="space-y-1">
+              {[
+                { name: 'Dashboard', active: true },
+                { name: 'Employees' },
+                { name: 'Recruitment' },
+                { name: 'Attendance' },
+                { name: 'Offboarding' },
+                { name: 'Leave' },
+              ].map((item, index) => (
                 <button
                   key={index}
-                  className={`w-full flex items-center space-x-3 px-4 py-2.5 rounded-xl text-xs font-semibold tracking-wide transition-all duration-200 cursor-pointer ${
+                  className={`w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide transition-all duration-150 cursor-pointer ${
                     item.active 
-                      ? 'bg-white/10 text-white font-bold' 
-                      : 'text-slate-300 hover:text-white hover:bg-white/5'
+                      ? 'bg-white/10 text-white font-extrabold shadow-sm' 
+                      : 'text-teal-100/70 hover:text-white hover:bg-white/5'
                   }`}
                 >
-                  <Icon className={`w-4 h-4 ${item.active ? 'text-[#14B8A6]' : 'text-slate-300'}`} />
-                  <span className="flex-1 text-left flex items-center gap-2">
-                    {item.active && <span className="w-1.5 h-1.5 rounded-full bg-[#14B8A6]" />}
-                    {item.name}
-                  </span>
+                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.active ? 'bg-[#2DD4BF]' : 'bg-teal-100/40'}`} />
+                  <span>{item.name}</span>
                 </button>
-              );
-            })}
+              ))}
+            </div>
+
+            {/* Operations Section */}
+            <div className="space-y-1">
+              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">OPERATIONS</span>
+              {[
+                { name: 'Payroll' },
+                { name: 'Performance' },
+                { name: 'Templates' },
+              ].map((item, index) => (
+                <button
+                  key={index}
+                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* System Section */}
+            <div className="space-y-1">
+              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">SYSTEM</span>
+              {[
+                { name: 'Reports' },
+                { name: 'Settings' },
+              ].map((item, index) => (
+                <button
+                  key={index}
+                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </div>
+
+            {/* Admin Section */}
+            <div className="space-y-1">
+              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">ADMIN</span>
+              {[
+                { name: 'Security Alerts' },
+                { name: 'AI Usage Logs' },
+              ].map((item, index) => (
+                <button
+                  key={index}
+                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
+                  <span>{item.name}</span>
+                </button>
+              ))}
+            </div>
           </nav>
         </div>
 
-        {/* User profile bottom section */}
-        <div className="p-4 border-t border-white/10 bg-black/10 flex items-center justify-between">
+        {/* User Card Bottom */}
+        <div className="p-4 border-t border-teal-800/40 bg-black/10 flex items-center justify-between">
           <div className="flex items-center space-x-3 min-w-0">
-            <div className="w-9 h-9 rounded-full bg-emerald-500 flex items-center justify-center text-xs font-extrabold text-white shadow-inner uppercase shrink-0">
+            <div className="w-9 h-9 rounded-full bg-[#2DD4BF] flex items-center justify-center text-xs font-extrabold text-[#115e59] shadow-inner uppercase shrink-0">
               {getInitials(user?.email)}
             </div>
             <div className="min-w-0">
-              <p className="text-xs font-bold text-white truncate capitalize">
-                {user?.email?.split('@')[0] || 'Admin'}
-              </p>
-              <p className="text-[10px] text-slate-300 font-medium truncate capitalize">
-                {user?.role || 'HR Manager'}
-              </p>
+              <p className="text-xs font-bold text-white truncate">Admin User</p>
+              <p className="text-[10px] text-teal-200/60 font-semibold truncate mt-0.5">hr@company.com</p>
             </div>
           </div>
-          
-          <button 
-            onClick={onLogout}
-            title="Sign Out"
-            className="p-2 text-slate-400 hover:text-white hover:bg-white/10 rounded-xl transition-all duration-150 active:scale-95 cursor-pointer"
-          >
-            <FiLogOut className="w-4 h-4" />
+          <button className="text-teal-200 hover:text-white transition-colors cursor-pointer">
+            <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2.5" d="M19 9l-7 7-7-7" />
+            </svg>
           </button>
         </div>
       </aside>
@@ -113,52 +136,78 @@ const DashboardPage = ({ user, onLogout }) => {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col overflow-hidden">
         {/* Top Header */}
-        <header className="h-16 bg-white border-b border-slate-100 px-8 flex items-center justify-between flex-shrink-0">
-          <h1 className="text-lg font-extrabold text-slate-800 select-none">Dashboard</h1>
+        <header className="h-20 bg-white border-b border-slate-100 px-8 flex items-center justify-between flex-shrink-0 select-none">
+          {/* Left: Breadcrumbs & Page Title */}
+          <div className="flex flex-col">
+            <div className="flex items-center space-x-1 text-[10px] font-bold text-slate-400 tracking-wider">
+              <span>HUMAI</span>
+              <span>/</span>
+              <span>DASHBOARD</span>
+            </div>
+            <h1 className="text-2xl font-black text-slate-800 tracking-tight mt-0.5">Dashboard</h1>
+          </div>
           
-          <div className="flex items-center space-x-6">
-            {/* Search */}
+          {/* Right: Search, Actions, Profile & Logout */}
+          <div className="flex items-center space-x-4">
+            {/* Search bar */}
             <div className="relative w-64">
               <FiSearch className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
               <input 
                 type="text" 
-                placeholder="Search anything..." 
-                className="w-full bg-slate-50 border border-slate-100 rounded-xl pl-10 pr-4 py-1.5 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#0D5C7D]/15 focus:border-[#0D5C7D] transition-all duration-200"
+                placeholder="Search..." 
+                className="w-full bg-[#F4F9FB] border border-[#E2E8F0] rounded-xl pl-10 pr-4 py-2 text-xs text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#14B8A6]/20 transition-all duration-200"
               />
             </div>
 
-            {/* Notifications */}
-            <button className="relative p-2 text-slate-400 hover:text-slate-600 transition-colors cursor-pointer bg-slate-50 hover:bg-slate-100 rounded-xl">
-              <FiBell className="w-4.5 h-4.5" />
-              <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-[#14B8A6] rounded-full border border-white" />
+            {/* Action Button 1 */}
+            <button className="p-2 border border-slate-100 hover:bg-slate-50 text-slate-500 rounded-xl transition-all duration-150 cursor-pointer">
+              <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+              </svg>
             </button>
 
-            {/* Profile Avatar */}
-            <div className="w-8 h-8 rounded-full bg-emerald-500 flex items-center justify-center text-xs font-bold text-white shadow-sm border border-emerald-400 select-none">
+            {/* Action Button 2 */}
+            <button className="p-2 border border-slate-100 hover:bg-slate-50 text-slate-500 rounded-full transition-all duration-150 cursor-pointer">
+              <svg className="w-4.5 h-4.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+              </svg>
+            </button>
+
+            {/* User Profile avatar */}
+            <div className="w-9 h-9 rounded-full bg-[#2DD4BF] flex items-center justify-center text-sm font-bold text-[#115e59] shadow-inner uppercase select-none">
               {getInitials(user?.email)}
             </div>
+
+            {/* Logout button */}
+            <button 
+              onClick={onLogout}
+              title="Sign Out"
+              className="p-2 text-slate-400 hover:text-slate-600 rounded-xl transition-all duration-150 active:scale-95 cursor-pointer"
+            >
+              <FiLogOut className="w-4 h-4" />
+            </button>
           </div>
         </header>
 
-        {/* Dashboard Panels Scrollable content */}
+        {/* Dashboard Main Content Scrollable Area */}
         <main className="flex-1 p-8 overflow-y-auto space-y-6">
           {/* Notification Alert Banner */}
           {showAlert && (
-            <div className="bg-[#0D5C7D]/5 border border-[#0D5C7D]/10 px-4 py-3.5 rounded-2xl flex items-center justify-between text-xs font-semibold text-[#0D5C7D] animate-fade-in shadow-sm">
+            <div className="bg-white border border-slate-100 px-6 py-4.5 rounded-2xl flex items-center justify-between text-xs font-semibold text-slate-700 animate-fade-in shadow-sm">
               <div className="flex items-center space-x-3">
-                <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] animate-pulse shrink-0 shadow-md shadow-[#14B8A6]/20" />
-                <span>You have <strong className="text-[#0D5C7D] font-bold">4 pending leave requests</strong> awaiting review.</span>
+                <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] shrink-0" />
+                <span>You have <strong className="text-slate-900 font-bold">4 pending leave requests</strong> and <strong className="text-slate-900 font-bold">2 payroll corrections</strong> awaiting review.</span>
               </div>
               <div className="flex items-center space-x-3 shrink-0">
                 <button 
                   onClick={() => alert('Reviewing requests...')}
-                  className="bg-[#0D5C7D] hover:bg-[#0F3D5E] text-white px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all duration-150 active:scale-95 shadow-md shadow-[#0D5C7D]/10 cursor-pointer"
+                  className="bg-[#0B4F6C] hover:bg-[#0D5C7D] text-white px-5 py-2 rounded-full text-[10px] font-bold transition-all duration-150 active:scale-95 shadow-md shadow-[#0B4F6C]/10 cursor-pointer"
                 >
-                  Review
+                  Review Now
                 </button>
                 <button 
                   onClick={() => setShowAlert(false)}
-                  className="text-slate-400 hover:text-slate-600 font-bold px-2 py-1.5 rounded-xl text-xs transition-colors cursor-pointer"
+                  className="text-slate-400 hover:text-slate-600 font-bold px-2.5 py-2 rounded-xl text-[10px] transition-colors cursor-pointer"
                 >
                   Dismiss
                 </button>
@@ -166,50 +215,70 @@ const DashboardPage = ({ user, onLogout }) => {
             </div>
           )}
 
-          {/* Cards Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          {/* Stats Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             <StatsCard 
               title="Total Employees" 
               value="248" 
               change="+3 this month" 
-              isPositive={true} 
-              chartData={totalEmployeesData} 
-              strokeColor="#0D5C7D"
+              barHeights={[35, 45, 40, 50, 55, 60, 45, 80]}
+              activeColor="#14B8A6"
             />
             <StatsCard 
               title="Active Employees" 
               value="231" 
               change="93.1% retention" 
-              isPositive={true} 
-              chartData={activeEmployeesData} 
-              strokeColor="#14B8A6"
+              barHeights={[50, 55, 60, 58, 65, 70, 55, 82]}
+              activeColor="#14B8A6"
+            />
+            <StatsCard 
+              title="On Leave Today" 
+              value="12" 
+              change="4.8% of workforce" 
+              barHeights={[20, 30, 25, 40, 35, 30, 20, 55]}
+              activeColor="#14B8A6"
             />
             <StatsCard 
               title="Open Positions" 
               value="17" 
-              change="5 pending" 
-              isPositive={true} 
-              chartData={openPositionsData} 
-              strokeColor="#F59E0B"
+              change="5 pending interviews" 
+              barHeights={[65, 55, 45, 35, 50, 60, 40, 75]}
+              activeColor="#14B8A6"
             />
           </div>
 
-          {/* Lower Grid: Charts */}
+          {/* Middle Grid: Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
-            {/* Area Chart: Headcount Trend (span 2 cols) */}
             <div className="lg:col-span-2">
               <HeadcountChart />
             </div>
 
-            {/* Donut Chart: Departments (span 1 col) */}
+            {/* Donut Chart: Dept. Distribution */}
             <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between select-none">
-              <div>
-                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Departments</h4>
-                <p className="text-[10px] text-slate-400 mt-1 font-medium">Active team distribution</p>
+              <div className="flex justify-between items-center mb-6">
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Dept. Distribution</h4>
+                <button className="text-[10px] font-bold text-slate-400 border border-slate-100 hover:bg-slate-50 px-3 py-1 rounded-lg transition-colors cursor-pointer">
+                  SEE ALL
+                </button>
               </div>
 
-              <div className="flex items-center justify-between flex-1 mt-6">
-                {/* Donut ring */}
+              <div className="flex items-center justify-between flex-1 mt-4">
+                {/* Legend list on the left */}
+                <div className="flex-1 pr-4 space-y-3.5 text-xs font-semibold text-slate-600">
+                  {departmentData.map((item, index) => (
+                    <div key={index} className="flex items-center justify-between">
+                      <div className="flex items-center space-x-2.5 truncate">
+                        <span className="w-2.5 h-2.5 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
+                        <span className="truncate text-slate-700 font-bold">{item.name}</span>
+                      </div>
+                      <span className="text-slate-400 font-extrabold ml-2">
+                        {item.value}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Donut ring on the right */}
                 <div className="w-28 h-28 relative flex-shrink-0">
                   <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
@@ -229,30 +298,81 @@ const DashboardPage = ({ user, onLogout }) => {
                     </PieChart>
                   </ResponsiveContainer>
                   <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
-                    <span className="text-lg font-black text-slate-800 leading-none">248</span>
-                    <span className="text-[8px] font-bold text-slate-400 mt-1 uppercase tracking-wider">Total</span>
+                    <span className="text-xl font-black text-slate-800 leading-none">248</span>
+                    <span className="text-[8px] font-bold text-slate-400 mt-1 uppercase tracking-wider">TOTAL</span>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
 
-                {/* Legend list */}
-                <div className="flex-1 pl-6 space-y-2.5 text-xs font-semibold text-slate-600">
-                  {departmentData.map((item, index) => (
-                    <div key={index} className="flex items-center justify-between">
-                      <div className="flex items-center space-x-2 truncate">
-                        <span className="w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: item.color }} />
-                        <span className="truncate text-slate-700 font-bold">{item.name}</span>
-                      </div>
-                      <span className="text-slate-400 font-extrabold ml-2">
-                        {item.value}
-                      </span>
+          {/* Bottom Row: Recent Activity & Upcoming Events */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Recent Activity */}
+            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm flex flex-col justify-between select-none">
+              <div>
+                <div className="flex justify-between items-center mb-6">
+                  <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Recent Activity</h4>
+                  <button className="text-[10px] font-bold text-slate-400 border border-slate-100 hover:bg-slate-50 px-3 py-1 rounded-lg transition-colors cursor-pointer">
+                    SEE ALL
+                  </button>
+                </div>
+                <div className="space-y-4">
+                  {[
+                    { time: '09:32', text: 'New employee onboarded — Engineering' },
+                    { time: '10:15', text: 'Leave request approved — Design' },
+                    { time: '11:00', text: 'Performance review completed — Sales' },
+                    { time: '13:45', text: 'Policy document updated — HR' },
+                    { time: '14:22', text: 'Payroll cycle initiated — Finance' },
+                  ].map((item, index) => (
+                    <div key={index} className="flex items-center space-x-3 text-xs">
+                      <span className="text-slate-400 font-semibold w-10 shrink-0">{item.time}</span>
+                      <span className="text-slate-300">|</span>
+                      <span className="text-slate-700 font-medium">{item.text}</span>
                     </div>
                   ))}
                 </div>
+              </div>
+              
+              {/* View all Button */}
+              <button className="w-full mt-6 py-2 bg-white border border-slate-100 hover:bg-slate-50 hover:border-slate-200 text-slate-500 rounded-xl text-xs font-semibold text-center transition-all duration-150 cursor-pointer">
+                View all
+              </button>
+            </div>
+
+            {/* Upcoming Events */}
+            <div className="bg-white p-6 rounded-2xl border border-slate-100 shadow-sm select-none">
+              <div className="flex justify-between items-center mb-6">
+                <h4 className="text-xs font-bold text-slate-800 uppercase tracking-wider">Upcoming Events</h4>
+                <button className="text-[10px] font-bold text-slate-400 border border-slate-100 hover:bg-slate-50 px-3 py-1 rounded-lg transition-colors cursor-pointer">
+                  SEE ALL
+                </button>
+              </div>
+              <div className="space-y-4">
+                {[
+                  { date: 'Jun 5', text: 'Timesheet submission deadline' },
+                  { date: 'Jun 10', text: 'Mid-year self-assessments due' },
+                  { date: 'Jun 12', text: 'Payroll approval window' },
+                  { date: 'Jun 15', text: 'Direct deposit processing' },
+                  { date: 'Jun 20', text: 'Engineering calibration session' },
+                ].map((item, index) => (
+                  <div key={index} className="flex items-center space-x-4 text-xs">
+                    <span className="px-2.5 py-1 bg-[#14B8A6]/10 text-[#0F766E] font-bold rounded-lg shrink-0 w-[52px] text-center">
+                      {item.date}
+                    </span>
+                    <span className="text-slate-700 font-medium">{item.text}</span>
+                  </div>
+                ))}
               </div>
             </div>
           </div>
         </main>
       </div>
+
+      {/* Floating AI Action Button */}
+      <button className="fixed bottom-8 right-8 w-12 h-12 bg-[#0B4F6C] hover:bg-[#0D5C7D] text-white rounded-full flex items-center justify-center font-extrabold text-xs shadow-lg shadow-[#0B4F6C]/25 transition-all duration-200 hover:scale-105 active:scale-95 z-50 cursor-pointer">
+        + AI
+      </button>
     </div>
   );
 };
