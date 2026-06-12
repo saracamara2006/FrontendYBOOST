@@ -3,7 +3,7 @@ import LoginForm from '../components/auth/LoginForm';
 import HeroSection from '../components/marketing/HeroSection';
 import DashboardPreview from '../components/marketing/DashboardPreview';
 
-const LoginPage = () => {
+const LoginPage = ({ onLoginSuccess }) => {
   return (
     <div className="min-h-screen w-full flex flex-col lg:flex-row bg-white overflow-x-hidden">
       
@@ -29,7 +29,7 @@ const LoginPage = () => {
           </div>
 
           {/* Form */}
-          <LoginForm />
+          <LoginForm onLoginSuccess={onLoginSuccess} />
         </div>
 
         {/* Footer */}

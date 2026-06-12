@@ -2,27 +2,52 @@ import React, { useState } from 'react';
 import PasswordInput from './PasswordInput';
 import { FiLoader, FiCheckCircle } from 'react-icons/fi';
 
-const LoginForm = () => {
+const LoginForm = ({ onLoginSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+    setError(null);
     
-    // Simulate API request
-    setTimeout(() => {
+    try {
+      const response = await fetch('/api/auth/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ email, password }),
+      });
+      
+      const data = await response.json();
+      
+      if (!response.ok) {
+        throw new Error(data.error || 'Authentication failed');
+      }
+      
+      // Save token and user details to localStorage
+      localStorage.setItem('token', data.token);
+      localStorage.setItem('user', JSON.stringify(data.user));
+      
       setIsLoading(false);
       setIsSuccess(true);
       
-      // Reset success status after a delay
+      // Reset success status after a delay and trigger redirect
       setTimeout(() => {
         setIsSuccess(false);
-      }, 3000);
-    }, 1500);
+        if (onLoginSuccess) {
+          onLoginSuccess(data.user);
+        }
+      }, 1000);
+    } catch (err) {
+      setIsLoading(false);
+      setError(err.message || 'Something went wrong. Please check your connection.');
+    }
   };
 
   return (
@@ -37,6 +62,14 @@ const LoginForm = () => {
         </div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-5">
+          {error && (
+            <div className="p-3.5 bg-rose-50 border border-rose-100 rounded-xl text-rose-800 text-xs md:text-sm font-medium animate-fade-in flex items-center gap-2.5">
+              <svg className="w-4 h-4 text-rose-500 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+              </svg>
+              <span>{error}</span>
+            </div>
+          )}
           {/* Email field */}
           <div className="w-full">
             <label htmlFor="email" className="block text-sm font-medium text-slate-700 mb-1.5">
