@@ -78,10 +78,6 @@ const HeadcountChart = () => {
           </AreaChart>
         </ResponsiveContainer>
       </div>
-
-      <div className="flex justify-center items-center mt-3">
-        <span className="w-2 h-2 rounded-full bg-[#14B8A6]" />
-      </div>
     </div>
   );
 };

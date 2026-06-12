@@ -5,10 +5,10 @@ import HeadcountChart from '../components/marketing/HeadcountChart';
 import { PieChart, Pie, Cell, ResponsiveContainer } from 'recharts';
 
 const departmentData = [
-  { name: 'Engineering', value: 82, color: '#0D5C7D' },
-  { name: 'Marketing', value: 45, color: '#14B8A6' },
-  { name: 'Sales', value: 58, color: '#0F766E' },
-  { name: 'Design', value: 34, color: '#2DD4BF' },
+  { name: 'Engineering', value: 82, color: '#1E3A8A' },
+  { name: 'Marketing', value: 45, color: '#0D9488' },
+  { name: 'Sales', value: 58, color: '#059669' },
+  { name: 'Design', value: 34, color: '#3B82F6' },
   { name: 'Operations', value: 29, color: '#94A3B8' },
 ];
 
@@ -24,45 +24,53 @@ const DashboardPage = ({ user, onLogout }) => {
     <div className="flex h-screen w-screen bg-[#F4F9FB] overflow-hidden font-sans">
       
       {/* Left Sidebar */}
-      <aside className="w-60 bg-[#115e59] text-white flex flex-col justify-between flex-shrink-0 z-20 shadow-xl select-none">
-        <div className="overflow-y-auto flex-1 py-6 px-4 space-y-6">
+      <aside className="w-60 bg-[#135263] text-white flex flex-col justify-between flex-shrink-0 z-20 shadow-xl select-none">
+        <div className="overflow-y-auto flex-1 py-6 px-4 space-y-5">
           {/* Header/Logo */}
-          <div className="px-3 flex items-center space-x-3">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-[#2DD4BF] to-white flex items-center justify-center text-sm font-extrabold text-[#115e59] shadow-md">
+          <div className="px-3 flex items-center space-x-2.5">
+            <div className="w-7 h-7 rounded-xl bg-gradient-to-tr from-[#2DD4BF] to-white flex items-center justify-center text-xs font-extrabold text-[#135263] shadow-md">
               H
             </div>
-            <span className="text-white text-lg font-black tracking-wider">HUMAI</span>
+            <span className="text-white text-base font-black tracking-wider">HUMAI</span>
           </div>
 
           {/* Navigation Links */}
-          <nav className="space-y-5">
-            {/* Main Section */}
+          <nav className="space-y-4">
+            {/* Section: Admin HR Department */}
             <div className="space-y-1">
+              <span className="px-3 text-[9px] font-bold text-teal-200/50 uppercase tracking-wider block mb-1.5">ADMIN — HR DEPARTMENT</span>
+              <button className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide bg-white/10 text-white font-extrabold shadow-sm cursor-pointer">
+                <div className="flex items-center space-x-2.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#2DD4BF] shrink-0" />
+                  <span>Dashboard</span>
+                </div>
+                <span className="w-1.5 h-1.5 rounded-full bg-[#2DD4BF]" />
+              </button>
+            </div>
+
+            {/* Section: People */}
+            <div className="space-y-1">
+              <span className="px-3 text-[9px] font-bold text-teal-200/50 uppercase tracking-wider block mb-1.5">PEOPLE</span>
               {[
-                { name: 'Dashboard', active: true },
                 { name: 'Employees' },
                 { name: 'Recruitment' },
-                { name: 'Attendance' },
+                { name: 'Onboarding' },
                 { name: 'Offboarding' },
                 { name: 'Leave' },
               ].map((item, index) => (
                 <button
                   key={index}
-                  className={`w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide transition-all duration-150 cursor-pointer ${
-                    item.active 
-                      ? 'bg-white/10 text-white font-extrabold shadow-sm' 
-                      : 'text-teal-100/70 hover:text-white hover:bg-white/5'
-                  }`}
+                  className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
                 >
-                  <span className={`w-1.5 h-1.5 rounded-full shrink-0 ${item.active ? 'bg-[#2DD4BF]' : 'bg-teal-100/40'}`} />
+                  <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
                   <span>{item.name}</span>
                 </button>
               ))}
             </div>
 
-            {/* Operations Section */}
+            {/* Section: Operations */}
             <div className="space-y-1">
-              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">OPERATIONS</span>
+              <span className="px-3 text-[9px] font-bold text-teal-200/50 uppercase tracking-wider block mb-1.5">OPERATIONS</span>
               {[
                 { name: 'Payroll' },
                 { name: 'Performance' },
@@ -70,7 +78,7 @@ const DashboardPage = ({ user, onLogout }) => {
               ].map((item, index) => (
                 <button
                   key={index}
-                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                  className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
                   <span>{item.name}</span>
@@ -78,16 +86,16 @@ const DashboardPage = ({ user, onLogout }) => {
               ))}
             </div>
 
-            {/* System Section */}
+            {/* Section: System */}
             <div className="space-y-1">
-              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">SYSTEM</span>
+              <span className="px-3 text-[9px] font-bold text-teal-200/50 uppercase tracking-wider block mb-1.5">SYSTEM</span>
               {[
                 { name: 'Reports' },
                 { name: 'Settings' },
               ].map((item, index) => (
                 <button
                   key={index}
-                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                  className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
                   <span>{item.name}</span>
@@ -95,16 +103,16 @@ const DashboardPage = ({ user, onLogout }) => {
               ))}
             </div>
 
-            {/* Admin Section */}
+            {/* Section: Admin */}
             <div className="space-y-1">
-              <span className="px-3 text-[10px] font-extrabold text-teal-200/50 uppercase tracking-widest block mb-2">ADMIN</span>
+              <span className="px-3 text-[9px] font-bold text-teal-200/50 uppercase tracking-wider block mb-1.5">ADMIN</span>
               {[
                 { name: 'Security Alerts' },
                 { name: 'AI Usage Logs' },
               ].map((item, index) => (
                 <button
                   key={index}
-                  className="w-full flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
+                  className="w-full flex items-center space-x-2.5 px-3 py-1.5 rounded-xl text-xs font-bold tracking-wide text-teal-100/70 hover:text-white hover:bg-white/5 transition-all duration-150 cursor-pointer"
                 >
                   <span className="w-1.5 h-1.5 rounded-full bg-teal-100/40 shrink-0" />
                   <span>{item.name}</span>
@@ -115,9 +123,9 @@ const DashboardPage = ({ user, onLogout }) => {
         </div>
 
         {/* User Card Bottom */}
-        <div className="p-4 border-t border-teal-800/40 bg-black/10 flex items-center justify-between">
+        <div className="p-4 border-t border-teal-800/20 bg-black/10 flex items-center justify-between">
           <div className="flex items-center space-x-3 min-w-0">
-            <div className="w-9 h-9 rounded-full bg-[#2DD4BF] flex items-center justify-center text-xs font-extrabold text-[#115e59] shadow-inner uppercase shrink-0">
+            <div className="w-9 h-9 rounded-full bg-[#2DD4BF] flex items-center justify-center text-xs font-extrabold text-[#135263] shadow-inner uppercase shrink-0">
               {getInitials(user?.email)}
             </div>
             <div className="min-w-0">
@@ -193,7 +201,7 @@ const DashboardPage = ({ user, onLogout }) => {
         <main className="flex-1 p-8 overflow-y-auto space-y-6">
           {/* Notification Alert Banner */}
           {showAlert && (
-            <div className="bg-white border border-slate-100 px-6 py-4.5 rounded-2xl flex items-center justify-between text-xs font-semibold text-slate-700 animate-fade-in shadow-sm">
+            <div className="bg-white border-l-4 border-l-[#14B8A6] border border-slate-100 px-6 py-4.5 rounded-2xl flex items-center justify-between text-xs font-semibold text-slate-700 animate-fade-in shadow-sm">
               <div className="flex items-center space-x-3">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#14B8A6] shrink-0" />
                 <span>You have <strong className="text-slate-900 font-bold">4 pending leave requests</strong> and <strong className="text-slate-900 font-bold">2 payroll corrections</strong> awaiting review.</span>
@@ -249,6 +257,7 @@ const DashboardPage = ({ user, onLogout }) => {
 
           {/* Middle Grid: Charts */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-stretch">
+            {/* Area Chart: Headcount Trend */}
             <div className="lg:col-span-2">
               <HeadcountChart />
             </div>
